@@ -1,0 +1,7 @@
+ui where we can input a patient ID and get the patient detail fetched from FHIR server
+
+FHIR RESTful API https://hl7.org/fhir/overview-dev.html#identity
+https://hl7.org/fhir/http.html
+
+Read Request
+	https://hl7.org/fhir/overview-dev.html#read-request
