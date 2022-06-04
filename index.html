@@ -5,21 +5,12 @@
 
 <body>
     Input a patient ID here, and click "Submit" to recieve the patient's records in raw JSON.
-    <input id="patient-id" type="number" value="2">
-    <button onclick="getPatientData()">Submit</button>
+    <form action="getpatientdata" method="post" enctype="multipart/form-data">
+        <input type="number" name="patientid"><br>
+        <input type="submit">
+    </form>
 
     <p id="response"></p>
 </body>
 
 </html>
-
-<script>
-    async function getPatientData(id) {
-        var patientID = document.getElementById("patient-id").value;
-        var response = await fetch("http://test.fhir.org/r2/Patient/" + patientID + "?_format=json");
-        var responseJSON = await response.json();
-        var humanReadable = responseJSON.text.div;
-        var responsePretty = JSON.stringify(humanReadable, null, 2);
-        document.getElementById("response").innerHTML += responsePretty;
-    }
-</script>
