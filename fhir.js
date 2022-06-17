@@ -1,4 +1,4 @@
-const formidable = require('formidable');
+const querystring = require('querystring')
 var http = require('http');
 const fs = require('fs');
 const url = require('url');
@@ -18,14 +18,21 @@ http.createServer(function (req, res) {
 
 function getPatientData(req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-        var patientid = fields.patientid;
+
+    let rawData = ''
+    req.on('data', chunk => {
+        rawData += chunk
+    })
+    req.on('end', () => {
+        let parsedData = querystring.decode(rawData)
+        var patientid = parsedData.patientid;
         res.write("Patient ID: " + patientid + "<br>");
-        request('http://test.fhir.org/r2/Patient/' + patientid, { json: true }, (err, resp, body) => {
+        let baseURL = "http://test.fhir.org/r3/"
+        let operation = "Patient/"
+        request(baseURL + operation + patientid, { json: true }, (err, resp, body) => {
             if (err) { return console.log(err); }
             res.write(body.text.div);
             res.end();
-        });
-    });
+        })
+    })
 }
