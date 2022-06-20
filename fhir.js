@@ -27,7 +27,7 @@ function getPatientData(req, res) {
         let parsedData = querystring.decode(rawData)
         var patientid = parsedData.patientid;
         res.write("Patient ID: " + patientid + "<br>");
-        let baseURL = "http://test.fhir.org/r3/"
+        let baseURL = "https://server.fire.ly/"
         let operation = "Patient/"
         request(baseURL + operation + patientid, { json: true }, (err, resp, body) => {
             if (err) { return console.log(err); }
