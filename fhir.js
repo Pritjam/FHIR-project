@@ -23,15 +23,22 @@ function getPatientData(req, res) {
     req.on('data', chunk => {
         rawData += chunk
     })
+    
     req.on('end', () => {
         let parsedData = querystring.decode(rawData)
         var patientid = parsedData.patientid;
         res.write("Patient ID: " + patientid + "<br>");
         let baseURL = "https://server.fire.ly/"
         let operation = "Patient/"
-        request(baseURL + operation + patientid, { json: true }, (err, resp, body) => {
+
+        request.get({
+            url: baseURL + operation + patientid,
+            json: true,
+            headers: { 'Accept': 'application/fhir+json' }
+        }, function (err, resp, body) {
             if (err) { return console.log(err); }
             res.write(body.text.div);
+            // console.log(body);
             res.end();
         })
     })
