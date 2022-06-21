@@ -1,6 +1,20 @@
 <!DOCTYPE html>
+<!-- CSS Import-->
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+  crossorigin="anonymous"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+  crossorigin="anonymous"
+></script>
+<!---->
 
 <html>
+<<<<<<< Updated upstream
 <title>FHIR test page</title>
 
 <body>
@@ -13,3 +27,25 @@
 </body>
 
 </html>
+=======
+  <title>FHIR test page</title>
+  <body class="bg-dark">
+    <div class="container py-2">
+      <img src="" />
+    </div>
+    <h1 class="title text-center text-light">Welcome to Health Chain!</h1>
+    <div class="container m-20 py-4">
+      <div
+        class="card text-center fs-3 py-4"
+        style="background-color: lightgrey; border-radius: 10px"
+      >
+        To get started, enter your Patient ID
+        <form class="py-4" action="getpatientdata" method="post">
+          <input type="number" name="patientid" /><br /><br />
+          <input class="btn btn-primary fs-5" type="submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+>>>>>>> Stashed changes

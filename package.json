@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node fhir.js"
+  },
   "dependencies": {
     "formidable": "^2.0.1",
     "request": "^2.88.2"
