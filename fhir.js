@@ -30,6 +30,11 @@ function getPatientData(req, res, parsedURL) {
         headers: { 'Accept': 'application/fhir+json' }
     }, function (err, resp, body) {
         if (err) { return console.log(err); }
+        if(body == null || body.text == null) {
+            res.write("Error: invalid response recieved");
+            res.end();
+            return console.log("Error: invalid response recieved");
+        }
         res.write(body.text.div);
         res.end();
     })
