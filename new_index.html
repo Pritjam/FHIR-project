@@ -1,40 +1,85 @@
 <!DOCTYPE html>
 <!-- CSS Import-->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-  crossorigin="anonymous" />
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-  crossorigin="anonymous"></script>
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+  crossorigin="anonymous"
+/>
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+  crossorigin="anonymous"
+></script>
 <!---->
 
 <html>
-<title>FHIR test page</title>
+  <title>FHIR test page</title>
 
-<body class="bg-dark">
-  <div class="container py-2">
-    <img src="" />
-  </div>
+  <body class="bg-dark">
+    <br />
 
-  <br>
-<!-- where user inputs ID -->
-  <h4 style="color: white;">Input patient ID here:</h4> <br>
-  <input type="number" id="patient_id">
-  <button onclick="runRequest()">Run Request</button>
+    <!-- where user inputs ID (DONT DELETE)-->
+    <div class="container m-20 py-4">
+      <div
+        class="card text-center fs-3 py-4"
+        style="background-color: lightgrey; border-radius: 10px"
+      >
+        Enter Patient ID
+        <br />
+        <div class="container m-20 py-4">
+          <input type="number" id="patient_id" />
+          <br />
+          <input
+            class="btn btn-primary fs-7"
+            onclick="runRequest()"
+            type="submit"
+          />
+        </div>
+      </div>
+    </div>
 
-  <!-- where patient data shows up -->
-  <div id="patient_data" style="color: white;"></div>
+    <!-- Temprary Use 
+    <div class="container m-20 py-4">
+      <div
+        class="card text-center fs-3 py-4"
+        style="background-color: lightgrey; border-radius: 10px"
+      >
+        To get started, enter your Patient ID
+        <form class="py-4" action="getpatientdata" method="post">
+          <input class="mx-20" type="number" id="patient_id" />
+          <br />
+          <input
+            class="btn btn-primary fs-5"
+            type="submit"
+            onclick="runRequest()"
+          />
+        </form>
+      </div>
+    </div>
+-->
+    <!-- where patient data shows up -->
+    <div class="container m-20 py-4">
+      <div
+        id="patient_data"
+        class="card text-center py-4 fs-3"
+        style="color: black; background-color: lightgrey"
+      ></div>
+    </div>
 
-  <script>
-    function runRequest() {
-      const patientID = document.getElementById("patient_id").value
-      const xhttp = new XMLHttpRequest();
-      xhttp.onload = function () {
-        document.getElementById("patient_data").innerHTML = this.responseText;
+    <script>
+      function runRequest() {
+        const patientID = document.getElementById("patient_id").value;
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+          document.getElementById("patient_data").innerHTML = this.responseText;
+        };
+        xhttp.open(
+          "POST",
+          "http://localhost:8080/getpatientdata?patientid=" + patientID
+        );
+        xhttp.send();
       }
-      xhttp.open("POST", "http://localhost:8080/getpatientdata?patientid=" + patientID);
-      xhttp.send();
-    }
-  </script>
-
-</body>
-
+    </script>
+  </body>
 </html>
