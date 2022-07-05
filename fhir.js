@@ -27,7 +27,8 @@ function getPatientData(req, res, parsedURL) {
     request.get({
         url: baseURL + operation + patientid,
         json: true,
-        headers: { 'Accept': 'application/fhir+json' }
+        headers: {  'Accept': 'application/fhir+json',
+                    'Access-Control-Allow-Origin': '*'}
     }, function (err, resp, body) {
         if (err) { return console.log(err); }
         if(body == null || body.text == null) {
