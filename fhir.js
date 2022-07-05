@@ -35,7 +35,7 @@ function getPatientData(req, res, parsedURL) {
             res.end();
             return console.log("Error: invalid response recieved");
         }
-        res.write(body.text.div);
+        res.write(JSON.stringify(body, null, 2));
         res.end();
     })
 }
