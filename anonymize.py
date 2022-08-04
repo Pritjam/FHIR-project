@@ -3,8 +3,10 @@ import json
 # classes can be "str", "dict", "list", "float", or probably "number"
 
 # simple function that determines if a given object is a "data" object (a string, int, or float) or if it's a structure like a list or dict.
-# def is_data(object):
-#     return true if type(object) is int
+def is_data(object):
+    if type(object) is dict or type(object) is list:
+        return False
+    return True
 
 # this method recurses down an object in order to try and find the field at the given path.
 # This given path is in the form of an array of keys, like ["root", "data", 3, "name"] which points to root.data[3].name within the object.
