@@ -9,11 +9,12 @@ def is_numeric(string):
     except:
         return False
 
-
-# alphabet: the "alphabet" to use for this encryption. In other words, the 
-#     set of characters that can be encoded/can be present in the encoded string.
-# plaintext: the string to encrypt. Can contain any characters found in the alphabet.
-# key: the key for encryption.
+# This method encrypts a given plaintext using the Vignere cipher, and the given key.
+# It is able to detect if the plaintext is purely numeric (with decimal points), in which case it uses a numeric "alphabet". 
+# Otherwise, it uses an alphanumeric "alphabet".
+# The encryption ignores foreign characters, simply passing them through to the output.
+#   plaintext: the string to encrypt. Can contain any characters found in the alphabet.
+#   key: the key for encryption.
 def encrypt(plaintext, key):
     alphabet = NUMERIC if is_numeric(plaintext) else ALPHANUMERIC
     return_array = []
@@ -33,20 +34,10 @@ def encrypt(plaintext, key):
         key_i = (key_i + 1) % len(key)
     return ''.join(return_array)
 
-# plaintext = "supersecretmessage"
-# print("Plaintext:", plaintext, "  Encrypts to:", encrypt_vignere(plaintext, "abcdefghijklmnopqrstuvwxyz", "thekey"))
 
-# plaintext = "SUPERsecretMESSAGE"
-# print("Plaintext:", plaintext, "  Encrypts to:", encrypt_vignere(plaintext, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "thekey"))
-
-# plaintext = "5UP3R53cr3tme554g3"
-# print("Plaintext:", plaintext, "  Encrypts to:", encrypt_vignere(plaintext, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", "thekey"))
-
-
-# alphabet: the "alphabet" to use for this decryption. In other words, the 
-#     set of characters that can be encoded/can be present in the encoded string.
-# ciphertext: the string to decrypt. Can contain any characters found in the alphabet.
-# key: the key for decryption.
+# This method does the exact opposite of the above method. It is used to decrypt Vignere encoded ciphertexts with a given key.
+#   ciphertext: the string to decrypt. Can contain any characters found in the alphabet.
+#   key: the key for decryption.
 def decrypt(ciphertext, key):
     alphabet = NUMERIC if is_numeric(ciphertext) else ALPHANUMERIC
     return_array = []
@@ -61,12 +52,3 @@ def decrypt(ciphertext, key):
 
         key_i = (key_i + 1) % len(key)
     return ''.join(return_array)
-
-# ciphertext = "lbtovqxjvoxkxzwkkc"
-# print("Ciphertext:", ciphertext, "  Decrypts to:", decrypt_vignere(ciphertext, "abcdefghijklmnopqrstuvwxyz", "thekey"))
-
-# ciphertext = "lbTOVQxjvoxkXZWKKc"
-# print("Ciphertext:", ciphertext, "  Decrypts to:", decrypt_vignere(ciphertext, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", "thekey"))
-
-# ciphertext = "n2TcVsljvcxKxb9dkq"
-# print("Ciphertext:", ciphertext, "  Decrypts to:", decrypt_vignere(ciphertext, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", "thekey"))

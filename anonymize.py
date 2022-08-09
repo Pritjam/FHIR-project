@@ -1,8 +1,10 @@
 import vignere
 import random
 import json
+import os.path as path
 
-
+# This method turns a nested list structure into a plain list. 
+# For example, if there is a list within a list, this method "unrolls" that list to a single-layer list with all elements of the outer and inner lists in it. 
 def expand(object, new_list):
     if type(object) is not list and type(object) is not dict:
         new_list.append(str(object))
@@ -52,6 +54,10 @@ def find(object, path, err):
         else:
             return find(object[key], path[1:], err)
 
+
+# this method allows a query into an object, to find a sub-object within it where a certain field has a certain value.
+# It can be though of as an SQL query like SELECT * FROM object WHERE object[field_name] == field_value
+
 def find_where(object, field_name, field_value):
     if type(object) is dict:
         if field_name in object:
@@ -72,7 +78,9 @@ def find_where(object, field_name, field_value):
         return None
         
 
-
+# This method returns the values of certain specified fields in an object.
+# Fields are specified using the "." operator, such as "parent.child.property". 
+# The wildcard operator, the asterisk "*" can be used to operate on multiple parts of an object at the same time.
 def find_strings(object, fields):
     strings = []
     for field_path in fields:
@@ -90,7 +98,11 @@ def find_strings(object, fields):
     
     return strings
 
-def anonymize_file(string_data):
+
+# This method anonymizes a given JSON string and writes the output JSON string to a file.
+# The file name is determined by the randomly generated Vignere key.
+# The output directory to put the anonymized file is specified by the parameter "output_dir".
+def anonymize_file(string_data, output_dir):
     json_object = json.loads(string_data)
     found = find_where(json_object, "resourceType", "Patient")
     strings = find_strings(found, ["name.*.*", "telecom.*.value", "gender", "birthDate", "address.*.extension.*.extension.*.valueDecimal", "address.*.*", "identifier.*.value"])
@@ -100,7 +112,7 @@ def anonymize_file(string_data):
     for element in strings:
         replaced = replaced.replace(element, vignere.encrypt(element, key))
 
-    f = open("output/" + str(key) + "_out.json", "w")
+    f = open(path.join(output_dir, str(key) + "_out.json"), "w")
     f.write(replaced)
     f.close()
 
