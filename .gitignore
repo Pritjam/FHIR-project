@@ -2,3 +2,8 @@ node_modules
 *.sh
 *.json
 __pycache__
+output
+sample
+archive
+input
+errors
