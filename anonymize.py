@@ -102,10 +102,10 @@ def find_strings(object, fields):
 # This method anonymizes a given JSON string and writes the output JSON string to a file.
 # The file name is determined by the randomly generated Vignere key.
 # The output directory to put the anonymized file is specified by the parameter "output_dir".
-def anonymize_file(string_data, output_dir):
+def anonymize_file(string_data, output_dir, paths):
     json_object = json.loads(string_data)
     found = find_where(json_object, "resourceType", "Patient")
-    strings = find_strings(found, ["name.*.*", "telecom.*.value", "gender", "birthDate", "address.*.extension.*.extension.*.valueDecimal", "address.*.*", "identifier.*.value"])
+    strings = find_strings(found, paths)
 
     replaced = string_data
     key = str(random.randint(1000000000, 9999999999))
